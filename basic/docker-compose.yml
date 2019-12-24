@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  docker-proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: proxy
+    networks:
+      - plex
+    volumes:
+      -  /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - TZ="Europe/London"
+    ports:
+      - 0.0.0.0:80:80
+
+  jellyfin:
+    container_name: jellyfin
+    image: linuxserver/jellyfin:latest
+    restart: unless-stopped
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/jellyfin/config:/config
+      - /home/docker/config/plex/jellyfin/cache:/cache
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=jellyfin.prod.pknw1.co.uk
+      - VIRTUAL_PORT=8096
+      - PUID=666
+      - PGID=666
+
+networks:
+  plex:
+    driver: bridge

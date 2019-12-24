@@ -11,7 +11,7 @@ services:
     environment:
       - TZ="Europe/London"
     ports:
-      - 80:80
+      - 0.0.0.0:80:80
 
   utorrent:
     container_name: "utorrent"
@@ -102,4 +102,3 @@ services:
 networks:
   plex:
     driver: bridge
-    enable_ipv6: false
