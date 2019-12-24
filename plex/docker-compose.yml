@@ -1,0 +1,92 @@
+version: "3"
+services:
+
+  utorrent:
+    container_name: "utorrent"
+    image: dbarton/utorrent:latest
+    restart: always
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/utorrent:/config
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=utorrent.prod.pknw1.co.uk
+      - VIRTUAL_PORT=8080
+      - PUID=666
+      - PGID=666
+
+  jackett:
+    container_name: "jackett"
+    image: linuxserver/jackett:latest
+    restart: unless-stopped
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/jackett:/config
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=jackett.prod.pknw1.co.uk
+      - VIRTUAL_PORT=9117
+      - PUID=666
+      - PGID=666
+      
+  cp:
+    container_name: "cp"
+    image: linuxserver/couchpotato:latest
+    restart: unless-stopped
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/cp:/config
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=cp.prod.pknw1.co.uk
+      - VIRTUAL_PORT=5050
+      - PUID=666
+      - PGID=666
+      
+  sickchill:
+    container_name: "sickchill"
+    image: linuxserver/sickchill:latest
+    restart: unless-stopped
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/sickchill:/config
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=sickchill.prod.pknw1.co.uk
+      - VIRTUAL_PORT=8081
+      - PUID=666
+      - PGID=666
+      
+  jellyfin:
+    container_name: "jellyfin"
+    image: linuxserver/jellyfin:latest
+    restart: unless-stopped
+    dns: 8.8.8.8
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/config/plex/jellyfin/config:/config
+      - /home/docker/config/plex/jellyfin/cache:/cache
+      - /tmp:/tmp
+    environment:
+      - VIRTUAL_HOST=jellyfin.prod.pknw1.co.uk
+      - VIRTUAL_PORT=8096
+      - PUID=666
+      - PGID=666
+
+networks:
+  plex:
+    driver: bridge

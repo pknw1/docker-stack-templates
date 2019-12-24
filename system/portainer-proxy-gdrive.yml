@@ -1,0 +1,60 @@
+version: "3"
+services:
+
+  docker-proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: "docker-proxy"
+    networks:
+      - admin
+      - plex
+    volumes:
+      -  /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - TZ="Europe/London"
+    ports:
+      - 80:80
+ 
+#  portainer:
+#    image: portainer/portainer:latest
+#    container_name: "portainer"
+#    command: --no-analytics
+#    networks:
+#      - admin
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /home/docker/config/portainer:/data
+#    environment:
+#      - VIRTUAL_HOST=portainer.prod.pknw1.co.uk
+#      - VIRTUAL_PORT=9000
+#    ports:
+#      - 9000:9000
+  
+  rclone-mount:
+    image: mumiehub/rclone-mount:latest
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    security_opt:
+      - apparmor:unconfined
+    container_name: "rclone-google"
+    networks:
+      - admin
+    environment:
+      - RemotePath=google-drive:/rclone/
+      - MountCommands=--allow-other --uid 666 --gid 666 --umask 000 --allow-non-empty
+      - PUID=666
+      - PGID=666
+    volumes:
+      - /home/docker/config/rclone-mount:/config
+      - /mnt/google-drive:/mnt/mediaefs:shared
+      - /:/lxc-host
+      - /aws:/aws
+
+
+networks:
+  plex:
+    driver: bridge
+  admin:
+    driver: bridge
+
