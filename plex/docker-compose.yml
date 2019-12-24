@@ -94,7 +94,7 @@ services:
       - /home/docker/config/plex/jellyfin/cache:/cache
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=jellyfin.pknw1.co.uk
+      - VIRTUAL_HOST=jellyfin.prod.pknw1.co.uk
       - VIRTUAL_PORT=8096
       - PUID=666
       - PGID=666
@@ -102,3 +102,4 @@ services:
 networks:
   plex:
     driver: bridge
+    enable_ipv6: false
