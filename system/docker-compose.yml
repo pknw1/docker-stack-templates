@@ -5,7 +5,6 @@ services:
     image: jwilder/nginx-proxy:latest
     container_name: "docker-proxy"
     networks:
-      - admin
       - plex
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
@@ -54,7 +53,5 @@ services:
 
 networks:
   plex:
-    driver: bridge
-  admin:
     driver: bridge
 
