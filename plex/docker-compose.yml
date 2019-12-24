@@ -1,6 +1,18 @@
 version: '2'
 services:
 
+  docker-proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: proxy
+    networks:
+      - plex
+    volumes:
+      -  /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - TZ="Europe/London"
+    ports:
+      - 80:80
+
   utorrent:
     container_name: "utorrent"
     image: dbarton/utorrent:latest
@@ -70,7 +82,7 @@ services:
       - PGID=666
       
   jellyfin:
-    container_name: "jellyfin"
+    container_name: jellyfin
     image: linuxserver/jellyfin:latest
     restart: unless-stopped
     dns: 8.8.8.8
@@ -82,7 +94,7 @@ services:
       - /home/docker/config/plex/jellyfin/cache:/cache
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=jellyfin.prod.pknw1.co.uk
+      - VIRTUAL_HOST=jellyfin.pknw1.co.uk
       - VIRTUAL_PORT=8096
       - PUID=666
       - PGID=666
