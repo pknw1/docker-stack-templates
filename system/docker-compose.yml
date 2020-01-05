@@ -8,13 +8,13 @@ services:
       - plex
       - system
     volumes:
-      -  /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/ssl:/etc/ssl
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
     environment:
       - TZ="Europe/London"
-      - VIRTUAL_HOST="docker-proxy.pknw1.co.uk"	
+      - VIRTUAL_HOST="docker-proxy.pknw1.co.uk"
       - VIRTUAL_PORT="80"
       - PUID="666"
       - PGID="666"
