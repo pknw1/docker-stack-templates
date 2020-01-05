@@ -1,17 +1,5 @@
-version: '2'
+version: '3'
 services:
-
-  docker-proxy:
-    image: jwilder/nginx-proxy:latest
-    container_name: proxy
-    networks:
-      - plex
-    volumes:
-      -  /var/run/docker.sock:/tmp/docker.sock:ro
-    environment:
-      - TZ="Europe/London"
-    ports:
-      - 0.0.0.0:80:80
 
   utorrent:
     container_name: "utorrent"
@@ -22,10 +10,10 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/plex/utorrent:/config
+      - /home/docker/config/utorrent:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=utorrent.prod.pknw1.co.uk
+      - VIRTUAL_HOST=utorrent.pknw1.co.uk
       - VIRTUAL_PORT=8080
       - PUID=666
       - PGID=666
@@ -39,10 +27,10 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/plex/jackett:/config
+      - /home/docker/config/jackett:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=jackett.prod.pknw1.co.uk
+      - VIRTUAL_HOST=jackett.pknw1.co.uk
       - VIRTUAL_PORT=9117
       - PUID=666
       - PGID=666
@@ -56,10 +44,10 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/plex/cp:/config
+      - /home/docker/config/cp:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=cp.prod.pknw1.co.uk
+      - VIRTUAL_HOST=cp.pknw1.co.uk
       - VIRTUAL_PORT=5050
       - PUID=666
       - PGID=666
@@ -73,10 +61,10 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/plex/sickchill:/config
+      - /home/docker/config/sickchill:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=sickchill.prod.pknw1.co.uk
+      - VIRTUAL_HOST=sickchill.pknw1.co.uk
       - VIRTUAL_PORT=8081
       - PUID=666
       - PGID=666
@@ -90,11 +78,11 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/plex/jellyfin/config:/config
-      - /home/docker/config/plex/jellyfin/cache:/cache
+      - /home/docker/config/jellyfin/config:/config
+      - /home/docker/config/jellyfin/cache:/cache
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=jellyfin.prod.pknw1.co.uk
+      - VIRTUAL_HOST=jellyfin.pknw1.co.uk
       - VIRTUAL_PORT=8096
       - PUID=666
       - PGID=666
