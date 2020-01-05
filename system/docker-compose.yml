@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
 
   docker-proxy:
@@ -6,13 +6,17 @@ services:
     container_name: proxy
     networks:
       - plex
+      - system
     volumes:
       -  /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/ssl:/etc/ssl
     environment:
       - TZ="Europe/London"
     ports:
-      - 80:80
+      - 808:80
  
 networks:
+  system:
+    driver: bridge
   plex:
     driver: bridge
