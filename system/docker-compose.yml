@@ -56,7 +56,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /mnt/rclone-mount:/mnt/mediaefs:shared
+      - /mnt/rclone-mount-gdrive:/mnt/mediaefs:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -67,7 +67,7 @@ services:
       - TZ="Europe/London"
       - PUID="666"
       - PGID="666"
-      - RemotePath=ovh:/
+      - RemotePath=google-drive:/vps
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
 
