@@ -72,6 +72,31 @@ services:
       - MountPoint=/mnt/system_config
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
 
+  rclone-media:
+    image: mumiehub/rclone-mount:latest
+    container_name: rclone-media
+    restart: always
+    networks:
+      - plex
+      - system
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - /mnt/media:/mnt/media:shared
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath=google-drive:/vps
+      - MountPoint=/mnt/media
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty      
       
 networks:
   system:
@@ -81,4 +106,5 @@ networks:
     
 volumes:
   rclone-system:
+  rclone-media:
     
