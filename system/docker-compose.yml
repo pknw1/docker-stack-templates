@@ -42,10 +42,40 @@ services:
       - PUID="666"
       - PGID="666"
     ports:
-      - 9000:9000
+    - 9000:9000
+
+  rclone-mount-config:
+    image: mumiehub/rclone-mount:latest
+    container_name: docker-mount
+    restart: always
+    networks:
+      - plex
+      - system
+    volumes:
+      - /etc/ssl:/etc/ssl
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - /mnt/rclone-mount:/mnt/mediaefs:shared
+    security_opt:
+      - apparmour:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath="ovh:/"
+      - MountCommands="--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty"
+
+
+
       
 networks:
   system:
     driver: bridge
   plex:
     driver: bridge
+    
