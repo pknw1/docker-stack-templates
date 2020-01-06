@@ -37,8 +37,8 @@ services:
       - ./config/portainer:/data
     environment:
       - TZ="Europe/London"
-      - VIRTUAL_HOST="portainer.vps.pknw1.co.uk"
-      - VIRTUAL_PORT="9000"
+      - VIRTUAL_HOST=portainer.vps.pknw1.co.uk
+      - VIRTUAL_PORT=9000
       - PUID="666"
       - PGID="666"
     ports:
