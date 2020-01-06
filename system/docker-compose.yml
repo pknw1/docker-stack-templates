@@ -34,7 +34,6 @@ services:
       - /etc/ssl:/etc/ssl
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
-      - /mnt/config/portainer:/data
     environment:
       - TZ="Europe/London"
       - VIRTUAL_HOST=portainer.vps.pknw1.co.uk
@@ -57,7 +56,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /mnt/config:/mnt/system:shared
+      - /mnt/system_config:/mnt/system:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -69,7 +68,7 @@ services:
       - PUID="666"
       - PGID="666"
       - RemotePath=google-drive:/vps
-      - MountPoint=/mnt/system_config
+      - MountPoint=/mnt/system
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
 
   rclone-media:
