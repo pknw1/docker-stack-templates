@@ -57,7 +57,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - ./config:/mnt/system_config/:shared
+      - ./config:/mnt/system_config:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -70,7 +70,7 @@ services:
       - PGID="666"
       - RemotePath=google-drive:/vps/system_config
       - MountPoint=/mnt/system_config
-      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
 
       
 networks:
