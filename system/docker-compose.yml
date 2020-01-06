@@ -94,7 +94,7 @@ services:
       - TZ="Europe/London"
       - PUID="666"
       - PGID="666"
-      - RemotePath=google-drive:/vps
+      - RemotePath=ovh:/blob-pub
       - MountPoint=/mnt/media
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty      
       
