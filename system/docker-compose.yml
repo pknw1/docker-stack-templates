@@ -34,7 +34,7 @@ services:
       - /etc/ssl:/etc/ssl
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
-      - ./config/portainer:/data
+      - rclone-system:/mnt/system_config
     environment:
       - TZ="Europe/London"
       - VIRTUAL_HOST=portainer.vps.pknw1.co.uk
