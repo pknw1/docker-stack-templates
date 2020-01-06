@@ -1,6 +1,31 @@
 version: '3'
 services:
 
+  rclone-plex-config:
+    image: mumiehub/rclone-mount:latest
+    container_name: rclone-plex-config
+    restart: always
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - ./config:/mnt/config:shared
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath=google-drive:/vps
+      - MountPoint=/mnt/config
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
+
   utorrent:
     container_name: "utorrent"
     image: dbarton/utorrent:latest
@@ -14,12 +39,12 @@ services:
       - /tmp:/tmp
       - /aws:/aws
     environment:
-      - VIRTUAL_HOST=utorrent.pknw1.co.uk
+      - VIRTUAL_HOST=utorrent.vps.pknw1.co.uk
       - VIRTUAL_PORT=8080
       - PUID=666
       - PGID=666
     depends_on:
-      - rclone-mount-config
+      - rclone-plex-config
       
   jackett:
     container_name: "jackett"
@@ -33,11 +58,12 @@ services:
       - /home/docker/config/plex-stack/jackett:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=jackett.pknw1.co.uk
+      - VIRTUAL_HOST=jackett.vps.pknw1.co.uk
       - VIRTUAL_PORT=9117
       - PUID=666
       - PGID=666
-
+    depends_on:
+      - rclone-plex-config
       
   cp:
     container_name: "cp"
@@ -52,11 +78,12 @@ services:
       - /tmp:/tmp
       - /aws:/aws
     environment:
-      - VIRTUAL_HOST=cp.pknw1.co.uk
+      - VIRTUAL_HOST=cp.vps.pknw1.co.uk
       - VIRTUAL_PORT=5050
       - PUID=666
       - PGID=666
-
+    depends_on:
+      - rclone-plex-config
       
   sickchill:
     container_name: "sickchill"
@@ -70,11 +97,12 @@ services:
       - /home/docker/config/plex-stack/sickchill:/config
       - /tmp:/tmp
     environment:
-      - VIRTUAL_HOST=sickchill.pknw1.co.uk
+      - VIRTUAL_HOST=sickchill.vps.pknw1.co.uk
       - VIRTUAL_PORT=8081
       - PUID=666
       - PGID=666
-      - /aws:/aws
+    depends_on:
+      - rclone-plex-config
       
   jellyfin:
     container_name: jellyfin
@@ -90,11 +118,13 @@ services:
       - /tmp:/tmp
       - /aws:/aws
     environment:
-      - VIRTUAL_HOST=jellyfin.pknw1.co.uk
+      - VIRTUAL_HOST=jellyfin.vps.pknw1.co.uk
       - VIRTUAL_PORT=8096
       - PUID=666
       - PGID=666
-
+    depends_on:
+      - rclone-plex-config
+      
 networks:
   plex:
     driver: bridge
