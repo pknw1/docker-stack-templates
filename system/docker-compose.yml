@@ -42,7 +42,9 @@ services:
       - PUID="666"
       - PGID="666"
     ports:
-    - 9000:9000
+      - 9000:9000
+    depends_on:
+      - rclone-mount-config
 
   rclone-mount-config:
     image: mumiehub/rclone-mount:latest
@@ -56,7 +58,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /home/docker/config/plex-stack/:/mnt/mediaefs:shared
+      - /home/docker/config/plex-stack/:/mnt/config:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -68,6 +70,7 @@ services:
       - PUID="666"
       - PGID="666"
       - RemotePath=google-drive:/vps
+      - MountPoint=/mnt/config
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
 
@@ -83,7 +86,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /aws/ovh:/mnt/mediaefs:shared
+      - /aws/ovh:/mnt/ovh_media:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -94,7 +97,8 @@ services:
       - TZ="Europe/London"
       - PUID="666"
       - PGID="666"
-      - RemotePath=ovh:/blob_pub
+      - RemotePath=ovh:/
+      - MountPoint=/mnt/ovh_media
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
       
