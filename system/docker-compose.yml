@@ -86,7 +86,9 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /aws/ovh:/mnt/ovh_media:shared
+      - /aws/movies:/mnt/ovh_media/blob_pub/movies:shared
+      - /aws/tv:/mnt/ovh_media/blob_pub/tv:shared
+      - /aws:/aws
     security_opt:
       - apparmor:unconfined
     cap_add:

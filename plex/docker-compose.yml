@@ -12,11 +12,14 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /home/docker/config/plex-stack/utorrent:/config
       - /tmp:/tmp
+      - /aws:/aws
     environment:
       - VIRTUAL_HOST=utorrent.pknw1.co.uk
       - VIRTUAL_PORT=8080
       - PUID=666
       - PGID=666
+    depends_on:
+      - rclone-mount-config
       
   jackett:
     container_name: "jackett"
@@ -47,6 +50,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /home/docker/config/plex-stack/cp:/config
       - /tmp:/tmp
+      - /aws:/aws
     environment:
       - VIRTUAL_HOST=cp.pknw1.co.uk
       - VIRTUAL_PORT=5050
@@ -70,6 +74,7 @@ services:
       - VIRTUAL_PORT=8081
       - PUID=666
       - PGID=666
+      - /aws:/aws
       
   jellyfin:
     container_name: jellyfin
@@ -83,6 +88,7 @@ services:
       - /home/docker/config/plex-stack/jellyfin/config:/config
       - /home/docker/config/plex-stack/jellyfin/cache:/cache
       - /tmp:/tmp
+      - /aws:/aws
     environment:
       - VIRTUAL_HOST=jellyfin.pknw1.co.uk
       - VIRTUAL_PORT=8096
