@@ -86,9 +86,8 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /aws/movies:/mnt/ovh_media/blob_pub/movies:shared
-      - /aws/tv:/mnt/ovh_media/blob_pub/tv:shared
-      - /aws:/aws
+      - /aws/movies:/mnt/media/blob-pub/movies:shared
+      - /aws/tv:/mnt/media/blob-pub/tv:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -100,7 +99,7 @@ services:
       - PUID="666"
       - PGID="666"
       - RemotePath=ovh:/
-      - MountPoint=/mnt/ovh_media
+      - MountPoint=/mnt/media
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
       
