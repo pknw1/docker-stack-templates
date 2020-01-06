@@ -58,7 +58,7 @@ services:
       - /root/.config/rclone:/config
       - /mnt/rclone-mount:/mnt/mediaefs:shared
     security_opt:
-      - apparmour:unconfined
+      - apparmor:unconfined
     cap_add:
       - SYS_ADMIN
     devices:
