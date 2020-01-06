@@ -79,3 +79,6 @@ networks:
   plex:
     driver: bridge
     
+volumes:
+  rclone-system:
+    
