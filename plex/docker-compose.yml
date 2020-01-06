@@ -1,31 +1,6 @@
 version: '3'
 services:
 
-  rclone-plex-config:
-    image: mumiehub/rclone-mount:latest
-    container_name: rclone-plex-config
-    restart: always
-    networks:
-      - plex
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - /tmp:/tmp
-      - /root/.config/rclone:/config
-      - ./config:/mnt/config:shared
-    security_opt:
-      - apparmor:unconfined
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse:/dev/fuse
-    environment:
-      - TZ="Europe/London"
-      - PUID="666"
-      - PGID="666"
-      - RemotePath=google-drive:/vps
-      - MountPoint=/mnt/config
-      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
-
   utorrent:
     container_name: "utorrent"
     image: dbarton/utorrent:latest

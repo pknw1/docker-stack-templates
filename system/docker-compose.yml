@@ -34,7 +34,7 @@ services:
       - /etc/ssl:/etc/ssl
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
-      - rclone-system:/mnt/system_config
+      - /mnt/config/portainer:/data
     environment:
       - TZ="Europe/London"
       - VIRTUAL_HOST=portainer.vps.pknw1.co.uk
@@ -57,7 +57,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - ./config:/mnt/system_config/system_config:shared
+      - /mnt/config:/mnt/system:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
