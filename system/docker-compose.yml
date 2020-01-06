@@ -74,7 +74,7 @@ services:
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
 
-  rclone-mount-media:
+  rclone-media:
     image: mumiehub/rclone-mount:latest
     container_name: rclone-media
     restart: always
