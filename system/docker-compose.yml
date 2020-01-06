@@ -46,7 +46,7 @@ services:
     depends_on:
       - rclone-system
       
-   rclone-system:
+  rclone-system:
     image: mumiehub/rclone-mount:latest
     container_name: rclone-system
     restart: always
