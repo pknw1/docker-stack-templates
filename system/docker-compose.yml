@@ -46,7 +46,7 @@ services:
 
   rclone-mount-config:
     image: mumiehub/rclone-mount:latest
-    container_name: docker-mount
+    container_name: rclone-config
     restart: always
     networks:
       - plex
@@ -56,7 +56,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /mnt/rclone-mount-gdrive:/mnt/mediaefs:shared
+      - /home/docker/config/plex-stack/:/mnt/mediaefs:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -71,6 +71,31 @@ services:
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
 
+  rclone-mount-media:
+    image: mumiehub/rclone-mount:latest
+    container_name: rclone-media
+    restart: always
+    networks:
+      - plex
+      - system
+    volumes:
+      - /etc/ssl:/etc/ssl
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - /aws/ovh:/mnt/mediaefs:shared
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath=ovh:/blob_pub
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
 
       
 networks:

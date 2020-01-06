@@ -10,7 +10,7 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/utorrent:/config
+      - /home/docker/config/plex-stack/utorrent:/config
       - /tmp:/tmp
     environment:
       - VIRTUAL_HOST=utorrent.pknw1.co.uk
@@ -27,7 +27,7 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/jackett:/config
+      - /home/docker/config/plex-stack/jackett:/config
       - /tmp:/tmp
     environment:
       - VIRTUAL_HOST=jackett.pknw1.co.uk
@@ -44,7 +44,7 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/cp:/config
+      - /home/docker/config/plex-stack/cp:/config
       - /tmp:/tmp
     environment:
       - VIRTUAL_HOST=cp.pknw1.co.uk
@@ -61,7 +61,7 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/sickchill:/config
+      - /home/docker/config/plex-stack/sickchill:/config
       - /tmp:/tmp
     environment:
       - VIRTUAL_HOST=sickchill.pknw1.co.uk
@@ -78,8 +78,8 @@ services:
       - plex
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/config/jellyfin/config:/config
-      - /home/docker/config/jellyfin/cache:/cache
+      - /home/docker/config/plex-stack/jellyfin/config:/config
+      - /home/docker/config/plex-stack/jellyfin/cache:/cache
       - /tmp:/tmp
     environment:
       - VIRTUAL_HOST=jellyfin.pknw1.co.uk
