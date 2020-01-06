@@ -68,7 +68,7 @@ services:
       - PUID="666"
       - PGID="666"
       - RemotePath="ovh:/"
-      - MountCommands="--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty"
+      - MountCommands="--uid 666 --gid 666 --umask 000 --allow-other"
 
 
 
