@@ -67,7 +67,9 @@ services:
       - TZ="Europe/London"
       - PUID="666"
       - PGID="666"
-      - RemotePath="ovh:/"
+      - RemotePath=ovh:/
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other
+
 
 
       
