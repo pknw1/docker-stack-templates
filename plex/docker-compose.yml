@@ -17,8 +17,6 @@ services:
       - VIRTUAL_PORT=8080
       - PUID=666
       - PGID=666
-    volumes_from:
-      - rclone_media
       
   jackett:
     container_name: "jackett"
@@ -36,8 +34,7 @@ services:
       - VIRTUAL_PORT=9117
       - PUID=666
       - PGID=666
-    volumes_from:
-      - rclone_media
+
       
   cp:
     container_name: "cp"
@@ -55,8 +52,7 @@ services:
       - VIRTUAL_PORT=5050
       - PUID=666
       - PGID=666
-    volumes_from:
-      - rclone_media
+
       
   sickchill:
     container_name: "sickchill"
@@ -74,8 +70,6 @@ services:
       - VIRTUAL_PORT=8081
       - PUID=666
       - PGID=666
-    volumes_from:
-      - rclone_media
       
   jellyfin:
     container_name: jellyfin
@@ -89,8 +83,6 @@ services:
       - /home/docker/config/plex-stack/jellyfin/config:/config
       - /home/docker/config/plex-stack/jellyfin/cache:/cache
       - /tmp:/tmp
-    volumes_from:
-      - rclone_media
     environment:
       - VIRTUAL_HOST=jellyfin.pknw1.co.uk
       - VIRTUAL_PORT=8096
