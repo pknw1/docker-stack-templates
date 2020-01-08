@@ -11,7 +11,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /mnt/media:/mnt/media:shared
+      - /mnt/ovh:/mnt/ovh:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -22,8 +22,8 @@ services:
       - TZ="Europe/London"
       - PUID="666"
       - PGID="666"
-      - RemotePath=ovh:/blob-pub
-      - MountPoint=/mnt/media
+      - RemotePath=ovh:/
+      - MountPoint=/mnt/ovh
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
 
   rclone-system:
@@ -36,7 +36,7 @@ services:
       - /etc/localtime:/etc/localtime
       - /tmp:/tmp
       - /root/.config/rclone:/config
-      - /mnt/system:/mnt/system:shared
+      - /mnt/google-drive:/mnt/google-drive:shared
     security_opt:
       - apparmor:unconfined
     cap_add:
@@ -48,7 +48,7 @@ services:
       - PUID="666"
       - PGID="666"
       - RemotePath=google-drive:/vps
-      - MountPoint=/mnt/system
+      - MountPoint=/mnt/google-drive
       - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
 
 networks:
