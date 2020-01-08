@@ -1,0 +1,56 @@
+version: '3'
+services:
+
+  rclone-media:
+    image: mumiehub/rclone-mount:latest
+    container_name: rclone-media
+    restart: always
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - /mnt/media:/mnt/media:shared
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath=ovh:/blob-pub
+      - MountPoint=/mnt/media
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
+
+  rclone-system:
+    image: mumiehub/rclone-mount:latest
+    container_name: rclone-system
+    restart: always
+    networks:
+      - plex
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /tmp:/tmp
+      - /root/.config/rclone:/config
+      - /mnt/system:/mnt/system:shared
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    environment:
+      - TZ="Europe/London"
+      - PUID="666"
+      - PGID="666"
+      - RemotePath=google-drive:/vps
+      - MountPoint=/mnt/system
+      - MountCommands=--uid 666 --gid 666 --umask 000 --allow-other --allow-non-empty
+
+networks:
+  plex:
+    driver: bridge
